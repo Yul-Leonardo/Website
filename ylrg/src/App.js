@@ -3,7 +3,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <h1> Fick dich Yannik! </h1>
+      <h1> YLRG </h1>
     </div>
   );
 }
