@@ -1,6 +1,5 @@
 import './App.css';
 import React, { useState } from "react";
-import Gay from './images/gay.png';
 
 function App() {
 
