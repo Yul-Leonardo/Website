@@ -1,9 +1,11 @@
 import './App.css';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
+const listFromLocalStorage = JSON.parse(localStorage.getItem("list") || "[]")
 
 function App() {
 
-  const [list, setList] = useState([]);
+  const [list, setList] = useState(listFromLocalStorage);
   const [input, setInput] = useState("");
 
   const addTodo = (todo) => {
@@ -14,16 +16,26 @@ function App() {
 
     // add the todo to the list
     setList([...list, newTodo]);
+    console.log("list:")
+    console.log(list)
 
     // clear input box
     setInput("");
   };
+
+  // local storage
+  useEffect(() => {
+  localStorage.setItem("list", JSON.stringify(list)); 
+  }, [list]);
+
 
   const deleteTodo = (id) => {
     // Filter out todo with the id
     const newList = list.filter((todo) => todo.id !== id);
 
     setList(newList);
+    console.log("newList:")
+    console.log(newList)
   };
 
   return (
