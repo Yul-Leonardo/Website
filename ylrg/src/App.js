@@ -1,12 +1,12 @@
 import './App.css';
-//import Todo from './components/todo';
+import Mama from './components/mama';
 import React from "react";
 
 function App() {
 
   return (
     <div>
-      <p> Hello World! </p>
+     <p> Hey !</p>
     </div>
   );
 };
