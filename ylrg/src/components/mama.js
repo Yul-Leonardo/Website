@@ -18,7 +18,7 @@ camera.position.setY(-3);
 
 renderer.render( scene, camera);
 
-const jeff = new THREE.TextureLoader().load('https://cywarr.github.io/small-shop/03db80b70ecfc07e84e6dd2589d0b14c57414fb8[1].jpeg');
+const jeff = new THREE.TextureLoader().load('https://i.imgur.com/cDId6pB.jpg');
 //const Front = new THREE.TextureLoader().load('textures/Front.png');
 //const Left = new THREE.TextureLoader().load("textures/Left.png");
 //const Up = new THREE.TextureLoader().load("textures/Up.png");
@@ -39,14 +39,11 @@ scene.add(pointLight, ambientLight);
 
 
 
-//const lightHelper = new THREE.PointLightHelper(pointLight);
-//const gridHelper = new THREE.GridHelper(200, 50);
-//scene.add(lightHelper, gridHelper);
+const lightHelper = new THREE.PointLightHelper(pointLight);
+const gridHelper = new THREE.GridHelper(200, 50);
+scene.add(lightHelper, gridHelper);
 
 const controls = new OrbitControls(camera, renderer.domElement);
-
-const spaceTexture = new THREE.TextureLoader().load('textures/space.jpg');
-scene.background = spaceTexture;
 
 //const jeffTexture = new THREE.TextureLoader().load('textures/jeff.png');
 
