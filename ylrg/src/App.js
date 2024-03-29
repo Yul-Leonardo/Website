@@ -6,6 +6,9 @@ function App() {
       <h1>
         YLRG
       </h1>
+      <h2>
+        Julius Cesar
+      </h2>
     </div>
   );
 }
