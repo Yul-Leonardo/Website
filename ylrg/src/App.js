@@ -1,14 +1,13 @@
 import './App.css';
 import './style.css';
-import Mama from './components/mama';
 import React from "react";
 
 function App() {
 
   return (
     <div>
-      <canvas id="bg"></canvas>
-      <script type="module" src="./components/mama.js"></script>
+      <h1> Hallo Yul!</h1>
+
     </div>
   );
 };
