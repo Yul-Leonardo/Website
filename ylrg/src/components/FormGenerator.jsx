@@ -25,6 +25,7 @@ export default function FormGenerator() {
 
   return (
     <form onSubmit={handleSubmit}>
+      <h1> Penis </h1>
       <label>Anime name:
         <input
           type="text" 
