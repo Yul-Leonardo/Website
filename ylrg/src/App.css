@@ -1,10 +1,8 @@
 
-@media (min-max: 40em) {
-  .bars {
-    display: grid;
-    grid-template-columns: 10vw 30vw 30vw 30vw;
-    grid-template-rows: 10vh 30vh 30vh 30vh;
-  }
+.bars {
+  display: grid;
+  grid-template-columns: 10vw 30vw 30vw 30vw;
+  grid-template-rows: 10vh 30vh 30vh 30vh;
 }
 
 .item-0 {
