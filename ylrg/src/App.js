@@ -1,14 +1,20 @@
 import './App.css';
-import FormGenerator from './components/FormGenerator'
 
 function App() {
   
   return (
-    <div>
-      <h1> Hallo Welt !</h1>
-      <h2> Mumu </h2>
-      <input type="text" name="test" id="test" action="/action_page.php"></input>
-      <button type="button" value="Submit" onclick="myFunktion()">Submit</button>
+    <div className='bars'>
+      <h0 className='item-0'></h0>
+      <h1 className='item-1'></h1>
+      <h2 className='item-2'></h2>
+      <h3 className='item-3'></h3>
+      <h4 className='item-4'></h4>
+      <h5 className='item-5'></h5>
+      <h6 className='item-6'></h6>
+      <h7 className='item-7'></h7>
+      <h8 className='item-8'></h8>
+      <h9 className='item-9'></h9>
+      <h10 className='item-10'></h10>
 
     </div>
   );
