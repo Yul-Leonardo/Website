@@ -12,12 +12,13 @@ function App() {
   useEffect(() => {
     if (!isRunning) return;
 
-    const interval = setInterval((timeLeft) => {
+    const interval = setInterval(() => {
       setTimeLeft((prevTime) => {
         if (prevTime > 0) {
           return prevTime - 1;
         } else {
-          setTimeLeft(newTime)
+          setTimeLeft(newTime);
+          setIsRunning(false);
           setTime();
           return newTime;
         }
@@ -31,7 +32,6 @@ function App() {
   const handleSubmit = (event) => {
     event.preventDefault();
     setTimeLeft(newTime);
-    console.log({newTime});
   } 
 
   const setTime = () => {
@@ -45,7 +45,12 @@ function App() {
   const stopTimer = () => setIsRunning(false);
   const resetTimer = () => {
     setIsRunning(false);
-    setTimeLeft(60); // Zurücksetzen auf 60 Sekunden
+    setTimeLeft(); // Zurücksetzen auf 60 Sekunden
+    if (newTime === 0) {
+      setTimeLeft(0);
+    } else {
+      setTimeLeft(newTime);
+    }
   };
 
   const addSeconds = () => setTimeLeft((timeLeft) => timeLeft + 10);
