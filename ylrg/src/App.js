@@ -84,7 +84,6 @@ function App() {
       <div>
         {listItems}
       </div>
-      <h1>Bomboclat</h1>
     
     </div>
   );
