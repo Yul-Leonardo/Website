@@ -8,6 +8,7 @@ function App() {
   const [isRunning, setIsRunning] = useState(false);
   const [listItems, setlistItems] = useState([]);
   const [newTime, setnewTime] = useState(0);
+  const [isRender, setIsRender] = useState(false);
 
   useEffect(() => {
     if (!isRunning) return;
@@ -19,12 +20,10 @@ function App() {
         } else {
           setTimeLeft(newTime);
           setIsRunning(false);
-          setTime();
           return newTime;
         }
       });
     }, 1000);
-
     // Cleanup-Funktion
     return () => clearInterval(interval);
   }, [isRunning]);
@@ -38,6 +37,7 @@ function App() {
     setlistItems((prevItems) => [
       ...prevItems,
       <p key={prevItems.length}>Sekunde: {timeLeft} </p>,
+      <button>del</button>
     ]);
   };
 
