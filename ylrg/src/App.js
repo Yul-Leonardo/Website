@@ -56,8 +56,8 @@ function App() {
   const addSeconds = () => setTimeLeft((timeLeft) => timeLeft + 10);
 
   return (
-    <div style={{ textAlign: "center", fontFamily: "Arial", marginTop: "50px" }}>
-      <h1>Countdown Timer</h1>
+    <div style={{ textAlign: "center", fontFamily: "Arial", marginTop: "50  px" }}>
+      <h1 className='popo'>Countdown Timer</h1>
       <h2>{timeLeft} Sekunden</h2>
       <button onClick={startTimer} disabled={isRunning}>
         Start
