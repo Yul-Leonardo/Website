@@ -3,6 +3,9 @@ import { Avatar } from './Components/Avatar.js';
 
 export default function App() {
   return (
-    <Avatar />
-  );
+    <div>
+      <Avatar />
+      <Gallery />
+    </div>
+  ); 
 }
