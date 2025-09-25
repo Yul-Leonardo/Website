@@ -31,12 +31,13 @@ function App() {
   };
 
   const tasks = ["Küche", "Bad", "Wohnzimmer", "Balkon"];
-  const weeks = ["Week 1","Week 2","Week 3","Week 4","Week 5","Week 6","Week 7"];
+  const weeks = ["Week 1","Week 2","Week 3","Week 4","Week 5","Week 6"];
 
   const profiles = {
     Yago: "#f44336",
     Yul: "#2196f3",
-    Saphira: "#ff9800"
+    Saphira: "#ff9800",
+    Done: "#008000"
   };
 
   const [currentProfile, setCurrentProfile] = useState("Yago");
@@ -111,10 +112,14 @@ function App() {
                   onClick={() => handleDayClick(task, week)}
                   style={{
                     backgroundColor: profile ? profiles[profile] : "#fff",
-                    color: profile ? "#fff" : "#000"
+                    color: profile ? "#fff" : "#000",
+                    position: "relative",
                   }}
                 >
                   {idx + 1}
+                  {profile === "Done" && (
+                    <span className="done-flag">✅</span>
+                  )}
                 </button>
               );
             })}
