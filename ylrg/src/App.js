@@ -1,90 +1,137 @@
-import { useState, useEffect } from 'react';
-//import ReactDOM from 'react-dom/client';
-//import Car from './Car.jsx';
+import { useState, useEffect } from "react";
 import './App.css';
 
 function App() {
-  const [timeLeft, setTimeLeft] = useState(60); // Startwert: 60 Sekunden
-  const [isRunning, setIsRunning] = useState(false);
-  const [listItems, setlistItems] = useState([]);
-  const [newTime, setnewTime] = useState(0);
-  const [isRender, setIsRender] = useState(false);
+  const taskDescriptions = {
+    "Küche": `- Arbeitsflächen abwischen
+  - Herd und Backofen reinigen
+  - Kühlschrank kontrollieren und ggf. abwischen
+  - Spüle reinigen und Wasserhahn polieren
+  - Müll leeren und Papier nachfüllen
+  - Boden fegen und wischen`,
+    
+    "Bad": `- Waschbecken und Armaturen reinigen
+  - Toilette innen und außen putzen
+  - Dusche/Badewanne + Fugen reinigen
+  - Spiegel putzen
+  - Boden wischen
+  - Handtücher wechseln`,
+    
+    "Wohnzimmer": `- Staub wischen (Regale, Möbel)
+  - Oberflächen abwischen
+  - Teppiche saugen
+  - Kissen aufschütteln
+  - Fensterbänke reinigen`,
+    
+    "Balkon": `- Boden kehren oder wischen
+  - Möbel abwischen
+  - Pflanzen gießen
+  - Geländer reinigen
+  - Müll entsorgen`
+  };
+
+  const tasks = ["Küche", "Bad", "Wohnzimmer", "Balkon"];
+  const weeks = ["Week 1","Week 2","Week 3","Week 4","Week 5","Week 6","Week 7"];
+
+  const profiles = {
+    Yago: "#f44336",
+    Yul: "#2196f3",
+    Saphira: "#ff9800"
+  };
+
+  const [currentProfile, setCurrentProfile] = useState("Yago");
+  const [dayColors, setDayColors] = useState(() => {
+    const stored = localStorage.getItem("dayColors");
+    return stored ? JSON.parse(stored) : {};
+  });
+
+  const [modalTask, setModalTask] = useState(null); // Task für Modal
 
   useEffect(() => {
-    if (!isRunning) return;
+    localStorage.setItem("dayColors", JSON.stringify(dayColors));
+  }, [dayColors]);
 
-    const interval = setInterval(() => {
-      setTimeLeft((prevTime) => {
-        if (prevTime > 0) {
-          return prevTime - 1;
-        } else {
-          setTimeLeft(newTime);
-          setIsRunning(false);
-          return newTime;
-        }
-      });
-    }, 1000);
-    // Cleanup-Funktion
-    return () => clearInterval(interval);
-  }, [isRunning]);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setTimeLeft(newTime);
-  } 
-
-  const setTime = () => {
-    setlistItems((prevItems) => [
-      ...prevItems,
-      <p key={prevItems.length}>Sekunde: {timeLeft} </p>,
-      <button>del</button>
-    ]);
+  const handleDayClick = (task, week) => {
+    const key = `${task}-${week}`;
+    setDayColors(prev => ({
+      ...prev,
+      [key]: currentProfile
+    }));
   };
 
-  const startTimer = () => setIsRunning(true);
-  const stopTimer = () => setIsRunning(false);
-  const resetTimer = () => {
-    setIsRunning(false);
-    setTimeLeft(); // Zurücksetzen auf 60 Sekunden
-    if (newTime === 0) {
-      setTimeLeft(0);
-    } else {
-      setTimeLeft(newTime);
-    }
+  const openTaskModal = (task) => {
+    setModalTask(task);
   };
 
-  const addSeconds = () => setTimeLeft((timeLeft) => timeLeft + 10);
+  const closeTaskModal = () => {
+    setModalTask(null);
+  };
 
   return (
-    <div style={{ textAlign: "center", fontFamily: "Arial", marginTop: "50  px" }}>
-      <h1 className='popo'>Countdown Timer</h1>
-      <h2>{timeLeft} Sekunden</h2>
-      <button onClick={startTimer} disabled={isRunning}>
-        Start
-      </button>
-      <button onClick={stopTimer} disabled={!isRunning}>
-        Stop
-      </button>
-      <button onClick={resetTimer}>Reset</button>
-      <button onClick={addSeconds}>Add</button>
-      <button onClick={setTime}>Time</button>
-
-      <form onSubmit={handleSubmit}>
-        <label> Enter time: 
-          <input
-            type="number" 
-            value={newTime}
-            onChange={(e) => setnewTime(Number(e.target.value))}
-
-          />
-        </label>
-        <input type='submit'/>
-      </form>
-
-      <div>
-        {listItems}
+    <div>
+      {/* Profile Auswahl */}
+      <div className="profiles">
+        {Object.keys(profiles).map(profile => (
+          <button
+            key={profile}
+            className={`profile-btn ${currentProfile === profile ? "selected" : ""}`}
+            style={{ backgroundColor: profiles[profile] }}
+            onClick={() => setCurrentProfile(profile)}
+          >
+            {profile}
+          </button>
+        ))}
       </div>
-    
+
+      {/* Kalender */}
+      <div className="calendar">
+        <div className="week">Woche / Aufgabe</div>
+        {weeks.map((week) => (
+          <div key={week} className="week">{week}</div>
+        ))}
+
+        {tasks.map((task) => (
+          <>
+            {/* Task als Button */}
+            <button
+              key={task}
+              className="task-btn"
+              onClick={() => openTaskModal(task)}
+            >
+              {task}
+            </button>
+
+            {weeks.map((week, idx) => {
+              const key = `${task}-${week}`;
+              const profile = dayColors[key];
+              return (
+                <button
+                  key={key}
+                  className="day"
+                  onClick={() => handleDayClick(task, week)}
+                  style={{
+                    backgroundColor: profile ? profiles[profile] : "#fff",
+                    color: profile ? "#fff" : "#000"
+                  }}
+                >
+                  {idx + 1}
+                </button>
+              );
+            })}
+          </>
+        ))}
+      </div>
+
+      {/* Modal */}
+      {modalTask && (
+        <div className="modal-overlay" onClick={closeTaskModal}>
+          <div className="modal-content" onClick={e => e.stopPropagation()}>
+            <h2>{modalTask}</h2>
+            <pre>{taskDescriptions[modalTask]}</pre>
+            <button onClick={closeTaskModal}>Schließen</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
